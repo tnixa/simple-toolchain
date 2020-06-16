@@ -50,6 +50,14 @@ services:
         execute: true
   webide:
     service_id: orion
+  devops-insights:
+    parameters:
+      cf_controller: https://api.us-south.cf.cloud.ibm.com
+      dra_server: https://gateservice.us-south.devopsinsights.cloud.ibm.com
+      dlms_server: https://dlms.us-south.devopsinsights.cloud.ibm.com
+      dashboard_url: DASHBOARD_INSIGHTS_DASHBOARD_URL_GOES_HERE
+      env_id: ibm:yp:us-south
+    service_id: draservicebroker  
 form:
   pipeline:
     parameters:
