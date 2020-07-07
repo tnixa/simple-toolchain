@@ -8,6 +8,7 @@ template:
     - pipeline
     - devops_insights
     - slack
+    - keyprotect
 toolchain:
   name: 'juno-operator-toolchain-{{timestamp}}'
 services:
@@ -35,4 +36,6 @@ services:
     service_id: slack 
   devops_insights:
     service_id: draservicebroker  
+  keyprotect:
+    service_id: keyprotect
 
