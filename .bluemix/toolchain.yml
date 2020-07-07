@@ -1,66 +1,38 @@
 version: '2'
-messages:
-  $i18n: locales.yml
 template:
-  name:
-    $ref: "#/messages/template.name"
-  description:
-    $ref: "#/messages/template.description"
-  header: '![](toolchain.svg?localize)'
-  icon: icon.svg
+  name: "Custom toolchain template for Juno operator"
+  description: "Custom toolchain template for Juno operator"
   required:
-    - sample-build
-    - sample-repo
-  info:
-    git url: >-
-      [https://github.com/open-toolchain/simple-toolchain](https://github.com/open-toolchain/simple-toolchain)
-    git branch: >-
-      [master](https://github.com/open-toolchain/simple-toolchain/tree/master)
+    - source_repo
+    - tekton_repo
+    - pipeline
+    - devops_insights
+    - slack
 toolchain:
-  name: 'simple-toolchain-{{timestamp}}'
-  template:
-    getting_started:
-      $ref: "#/messages/template.gettingStarted"
+  name: 'juno-operator-toolchain-{{timestamp}}'
 services:
-  sample-repo:
+  source_repo:
     service_id: github_integrated
-    parameters:
-      repo_name: '{{toolchain.name}}'
-      repo_url: '{{toolchain.url}}'
-      type: clone
-      has_issues: true
-      enable_traceability: true
-  sample-build:
-    service_id: pipeline
-    parameters:
-      services:
-        - sample-repo
-      name: '{{services.sample-repo.parameters.repo_name}}'
-      ui-pipeline: true
-      configuration:
-        content:
-          $text: pipeline.yml
-        env:
-          SAMPLE_REPO: sample-repo
-          CF_APP_NAME: '{{form.pipeline.parameters.prod-app-name}}'
-          PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
-          PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
-          PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
-          API_KEY: '{{form.pipeline.parameters.api-key}}'
-        execute: true
-  webide:
-    service_id: orion
-  devops-insights:
-    parameters:
-      cf_controller: https://api.us-south.cf.cloud.ibm.com
-      dra_server: https://gateservice.us-south.devopsinsights.cloud.ibm.com
-      dlms_server: https://dlms.us-south.devopsinsights.cloud.ibm.com
-      dashboard_url: DASHBOARD_INSIGHTS_DASHBOARD_URL_GOES_HERE
-      env_id: ibm:yp:us-south
-    service_id: draservicebroker  
-form:
+  tekton_repo:
+    service_id: github_integrated
   pipeline:
     parameters:
-      prod-app-name: '{{services.sample-repo.parameters.repo_name}}'
-    schema:
-      $ref: deploy.json
+      label: build-and-push
+      type: tekton
+      name: build-and-push
+      ui_pipeline: true
+      configuration:
+        env:
+          github_integrated01: source_repo
+          github_integrated02: tekton_repo
+        content:
+          $text: pipeline.yml
+      services:
+      - source_repo
+      - tekton_repo
+    service_id: pipeline
+  slack:
+    service_id: slack 
+  devops_insights:
+    service_id: draservicebroker  
+
