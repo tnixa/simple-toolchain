@@ -33,7 +33,8 @@ services:
       - tekton_repo
     service_id: pipeline
   slack:
-    service_id: slack 
+    service_id: slack
+    longDescription: "This is a TEST"
   devops_insights:
     service_id: draservicebroker  
   keyprotect:
