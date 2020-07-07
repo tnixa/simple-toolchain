@@ -5,8 +5,72 @@ stages:
   - type: git
     branch: master
     service: ${source_repo}
+  properties:
+  - name: ibm_cloud_api_key
+    type: secure
+    value: ""
   triggers:
-  - type: commit
-  jobs:
-  - name: Build
-    type: builder
+  - branch: master
+    eventListener: build-listener
+    events:
+      push: true
+    name: Git Trigger - 0
+    properties:
+    - name: dockerfile
+      type: text
+      value: ./build/Dockerfile
+    - name: git-password
+      type: secure
+      value: ""
+    - name: git-repo-url
+      type: text
+      value:
+    - name: git-user
+      type: text
+      value:
+    - name: registry-namespace
+      type: text
+      value:
+    - name: registry-password
+      type: secure
+      value: ""
+    - name: registry-url
+      type: text
+      value: 
+    - name: registry-user
+      type: text
+      value:
+    type: git
+    service: ${github_integrated02}
+  - branch: master
+    eventListener: build-listener
+    name: Manual Trigger - 0
+    properties:
+    - name: app-name
+      type: text
+      value:
+    - name: dockerfile
+      type: text
+      value: ./build/Dockerfile
+    - name: git-password
+      type: secure
+      value: ""
+    - name: git-repo-url
+      type: text
+      value:
+    - name: git-user
+      type: text
+      value:
+    - name: registry-namespace
+      type: text
+      value:
+    - name: registry-password
+      type: secure
+      value: ""
+    - name: registry-url
+      type: text
+      value: us.icr.io
+    - name: registry-user
+      type: text
+      value:
+    type: manual
