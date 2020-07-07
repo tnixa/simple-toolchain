@@ -34,7 +34,9 @@ services:
     service_id: pipeline
   slack:
     service_id: slack
-    longDescription: "This is a TEST"
+    parameters:
+      channel_name: 'project-juno-builds'
+      team_url: 'ibm-cloud'
   devops_insights:
     service_id: draservicebroker  
   keyprotect:
