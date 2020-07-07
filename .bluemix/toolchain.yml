@@ -16,6 +16,8 @@ services:
     service_id: github_integrated
   tekton_repo:
     service_id: github_integrated
+    parameters:
+      repo_url: https://github.ibm.com/juno/build-templates
   pipeline:
     parameters:
       label: build-and-push
