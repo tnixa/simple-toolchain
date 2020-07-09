@@ -9,7 +9,7 @@ template:
     - slack
     - keyprotect
 toolchain:
-  name: 'juno-operator-toolchain-{{timestamp}}'
+  name: ''
 services:
   source_repo:
     service_id: github_integrated
@@ -36,4 +36,3 @@ services:
     service_id: draservicebroker  
   keyprotect:
     service_id: keyprotect
-
