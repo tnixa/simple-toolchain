@@ -4,7 +4,6 @@ template:
   description: "Custom toolchain template for Juno operator"
   required:
     - source_repo
-    - tekton_repo
     - pipeline
     - devops_insights
     - slack
@@ -14,8 +13,6 @@ toolchain:
 services:
   source_repo:
     service_id: github_integrated
-  tekton_repo:
-    service_id: github_integrated
   pipeline:
     parameters:
       label: build-and-push
@@ -24,16 +21,17 @@ services:
       ui_pipeline: true
       configuration:
         env:
-          github_integrated01: source_repo
-          github_integrated02: tekton_repo
+          github_integrated00: source_repo
         content:
           $text: pipeline.yml
       services:
       - source_repo
-      - tekton_repo
     service_id: pipeline
   slack:
-    service_id: slack 
+    service_id: slack
+    parameters:
+      channel_name: 'project-juno-builds'
+      team_url: 'ibm-cloud'
   devops_insights:
     service_id: draservicebroker  
   keyprotect:

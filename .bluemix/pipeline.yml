@@ -41,7 +41,7 @@ stages:
       type: text
       value:
     type: git
-    service: ${github_integrated02}
+    service: ${source_repo}
   - branch: master
     eventListener: build-listener
     name: Manual Trigger - 0
