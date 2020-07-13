@@ -7,7 +7,6 @@ template:
     - pipeline
     - devops_insights
     - slack
-    - keyprotect
 toolchain:
   name: ''
 services:
@@ -33,6 +32,4 @@ services:
       channel_name: 'project-juno-builds'
       team_url: 'ibm-cloud'
   devops_insights:
-    service_id: draservicebroker  
-  keyprotect:
-    service_id: keyprotect
+    service_id: draservicebroker
