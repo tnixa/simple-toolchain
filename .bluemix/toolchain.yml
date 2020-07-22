@@ -13,8 +13,12 @@ toolchain:
 services:
   source_repo:
     service_id: github_integrated
+    parameters:
+      has_issues: false
   tekton_repo:
     service_id: github_integrated
+    parameters:
+      has_issues: false
   pipeline:
     parameters:
       label: build-and-push
