@@ -31,7 +31,7 @@ services:
   slack:
     service_id: slack
     parameters:
-      channel_name: 'project-juno-builds'
+      channel_name: 'katamari-builds'
       team_url: 'ibm-cloud'
   devops_insights:
     service_id: draservicebroker
